@@ -3,61 +3,70 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class QuestionAnswerManager {
 
     /**
-     * Egyetlen válasz feldolgozása (Yes/No, Scale kérdéseknél).
+     * Egyszerű válasz feldolgozása YesNoQuestion és ScaleQuestion esetén.
+     *
+     * @param question   A kérdés objektum (YesNoQuestion vagy ScaleQuestion).
+     * @param answerIndex A felhasználó által választott válasz indexe.
      */
-    public static void processAnswer(Survey survey, int questionIndex, int answerIndex) {
-        Question question = survey.getQuestions().get(questionIndex);
-        List<? extends Answer> answers = question.getAnswers();
-        Answer selectedAnswer = answers.get(answerIndex);
-
-        // Válasz mentése vagy feldolgozása
-        System.out.println("Válasz: " + selectedAnswer.getText());
-        question.setUserAnswer(selectedAnswer);
-    }
-
-    /**
-     * Több válasz feldolgozása (PickMoreQuestion esetén).
-     */
-    public static void processPickMoreAnswer(Survey survey, int questionIndex, List<Integer> selectedIndexes) {
-        Question question = survey.getQuestions().get(questionIndex);
-        if (question instanceof PickMoreQuestion) {
-            PickMoreQuestion pickMoreQuestion = (PickMoreQuestion) question;
-            List<PickMoreAnswer> selectedAnswers = new ArrayList<>();
-
-            for (int index : selectedIndexes) {
-                if (index > 0 && index <= pickMoreQuestion.getAnswers().size()) {
-                    selectedAnswers.add(pickMoreQuestion.getAnswers().get(index - 1));
-                } else {
-                    System.out.println("Érvénytelen válaszindex: " + index);
-                }
-            }
-
-            // Válaszok mentése
-            PickMoreQuestion.setUserAnswers(selectedAnswers);
-            System.out.println("Választott lehetőségek: ");
-            for (PickMoreAnswer answer : selectedAnswers) {
-                System.out.println("- " + answer.getText());
-            }
-        } else {
-            System.out.println("Hiba: Nem PickMoreQuestion típusú kérdés.");
+    public static void processYesNoAnswer(YesNoQuestion question, int answerIndex) {
+        if (answerIndex < 0 || answerIndex >= question.getAnswers().size()) {
+            System.out.println("Érvénytelen válaszindex.");
+            return;
         }
+        YesNoAnswer selectedAnswer = question.getAnswers().get(answerIndex);
+        question.setUserAnswer(selectedAnswer);
+        System.out.println("Válasz mentve: " + selectedAnswer.getText());
+    }
+
+    public static void processScaleAnswer(ScaleQuestion question, int answerIndex) {
+        if (answerIndex < 0 || answerIndex >= question.getAnswers().size()) {
+            System.out.println("Érvénytelen válaszindex.");
+            return;
+        }
+        ScaleAnswer selectedAnswer = question.getAnswers().get(answerIndex);
+        question.setUserAnswer(selectedAnswer);
+        System.out.println("Válasz mentve: " + selectedAnswer.getText());
+    }
+    public static void processMultipleAnswers(PickMoreQuestion question, List<Integer> selectedIndexes) {
+        for (int index : selectedIndexes) {
+            if (index >= 0 && index < question.getAnswers().size()) {
+                question.addSelectedAnswer(question.getAnswers().get(index));
+            } else {
+                System.out.println("Érvénytelen válaszindex: " + index);
+            }
+        }
+        System.out.println("Kiválasztott opciók: ");
+        question.getSelectedAnswers().forEach(answer -> System.out.println("- " + answer.getText()));
     }
 
     /**
-     * Válaszok elemzése PickMoreQuestion esetén.
+     * PickMoreQuestion válaszainak indexeit dolgozza fel a felhasználói inputból.
+     *
+     * @param input         A felhasználói input (vesszővel elválasztott számok).
+     * @param maxAnswerSize Az elérhető válaszok maximális száma.
+     * @return A felhasználó által választott válaszok indexeinek listája.
      */
-    public static List<Integer> parsePickMoreAnswer(String input, PickMoreQuestion question) {
+    public static List<Integer> parsePickMoreAnswer(String input, int maxAnswerSize) {
         List<Integer> selectedIndexes = new ArrayList<>();
         try {
-            String[] parts = input.split(",");
-            for (String part : parts) {
-                selectedIndexes.add(Integer.parseInt(part.trim()));
+            String[] tokens = input.split(",");
+            for (String token : tokens) {
+                int index = Integer.parseInt(token.trim()) - 1; // Az input 1-alapú
+                if (index >= 0 && index < maxAnswerSize) {
+                    selectedIndexes.add(index);
+                } else {
+                    System.out.println("Érvénytelen válaszindex: " + (index + 1));
+                }
             }
         } catch (NumberFormatException e) {
-            System.out.println("Hibás formátum: " + input);
+            System.out.println("Hibás formátum. Kérem, csak számokat adjon meg!");
         }
         return selectedIndexes;
     }

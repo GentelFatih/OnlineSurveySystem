@@ -1,22 +1,26 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class PickMoreQuestion extends Question<PickMoreAnswer> {
-    private List<PickMoreAnswer> answers;
+public class PickMoreQuestion extends Question<Answer> {
+    private List<Answer> selectedAnswers = new ArrayList<>();
 
-    public PickMoreQuestion(String questionText, boolean isClosedEnded, boolean hasCondition, List<PickMoreAnswer> answers) {
-        super(questionText, isClosedEnded, hasCondition, answers); // Az ősosztálynak nem adjuk át az answerList-et
-        this.answers = answers; // Ezt itt külön kezeljük
+    public PickMoreQuestion(String text) {
+        super(text);
     }
 
-    public static void setUserAnswers(List<PickMoreAnswer> selectedAnswers) {
+    public PickMoreQuestion(String text, boolean isRequired, boolean hasCondition, List<PickMoreAnswer> answers) {
+        super(text, isRequired, hasCondition, answers);
     }
 
-    public List<PickMoreAnswer> getAnswers() {
-        return answers; // Kifejezetten PickMoreAnswer típusú listát ad vissza
+    public void addSelectedAnswer(Answer answer) {
+        this.selectedAnswers.add(answer);
     }
 
+    public List<Answer> getSelectedAnswers() {
+        return this.selectedAnswers;
+    }
 
 
     @Override

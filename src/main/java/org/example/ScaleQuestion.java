@@ -5,8 +5,8 @@ import java.util.List;
 
 public class ScaleQuestion extends Question<ScaleAnswer> {
 
-    public ScaleQuestion(String text, boolean required, boolean hasCondition, List<ScaleAnswer> answers) {
-        super(text, required, hasCondition, answers != null ? answers : new ArrayList<>());
+    public ScaleQuestion(String text, boolean isRequired, boolean hasCondition, List<ScaleAnswer> answers) {
+        super(text, isRequired, hasCondition, answers != null ? answers : new ArrayList<>());
     }
 
     @Override

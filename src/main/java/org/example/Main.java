@@ -40,13 +40,14 @@ public class Main {
                         PickMoreQuestion pickMoreQuestion = (PickMoreQuestion) question;
                         System.out.println("Adja meg a választott lehetőségek számát (vesszővel elválasztva, pl.: 1,3): ");
                         String input = scanner.nextLine(); // Felhasználó válaszainak beolvasása
-                        List<Integer> selectedIndexes = QuestionAnswerManager.parsePickMoreAnswer(input, pickMoreQuestion);
+                        // Az input feldolgozása és validálása
+                        List<Integer> selectedIndexes = QuestionAnswerManager.parsePickMoreAnswer(input, pickMoreQuestion.getAnswers().size());
 
-                        // Válaszok feldolgozása
-                        QuestionAnswerManager.processPickMoreAnswer(survey, i, selectedIndexes);
+// Válaszok feldolgozása
+                        QuestionAnswerManager.processMultipleAnswers(pickMoreQuestion, selectedIndexes);
                         System.out.println();
 
-                    } else {
+                    } else if (question instanceof YesNoQuestion) {
                         // Egyéb kérdések (Yes/No, Scale) válaszainak kezelése
                         System.out.println("Válassza ki a választ (1-" + question.getAnswers().size() + "): ");
                         int answerIndex = scanner.nextInt();
@@ -54,16 +55,37 @@ public class Main {
 
                         if (answerIndex > 0 && answerIndex <= question.getAnswers().size()) {
                             // Válasz feldolgozása
-                            QuestionAnswerManager.processAnswer(survey, i, answerIndex - 1);
+                            QuestionAnswerManager.processYesNoAnswer((YesNoQuestion) question, answerIndex - 1);
                             System.out.println();
 
                             // Eldöntendő kérdés esetén az előző válasz mentése
                             if (question instanceof YesNoQuestion && answerIndex == 1) { // 1 = IGEN válasz
                                 previousQuestionAnsweredYes = true;
                             }
+                            
                         } else {
                             System.out.println("Érvénytelen válasz. Kérem válasszon a megadott tartományban.");
                         }
+                    } else if (question instanceof ScaleQuestion) {
+                        // Egyéb kérdések (Yes/No, Scale) válaszainak kezelése
+                        System.out.println("Válassza ki a választ (1-" + question.getAnswers().size() + "): ");
+                        int answerIndex = scanner.nextInt();
+                        scanner.nextLine(); // Felszabadítja az inputot a következő beolvasáshoz
+
+                        if (answerIndex > 0 && answerIndex <= question.getAnswers().size()) {
+                            // Válasz feldolgozása
+                            QuestionAnswerManager.processScaleAnswer((ScaleQuestion) question, answerIndex - 1);
+                            System.out.println();
+
+                            // Eldöntendő kérdés esetén az előző válasz mentése
+                            if (question instanceof ScaleQuestion && answerIndex == 1) { // 1 = IGEN válasz
+                                previousQuestionAnsweredYes = true;
+                            }
+
+                        } else {
+                            System.out.println("Érvénytelen válasz. Kérem válasszon a megadott tartományban.");
+                        }
+                        
                     }
                 }
                 System.out.println();  // Külön sor a kérdőívek között
