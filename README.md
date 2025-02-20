@@ -2,16 +2,19 @@
 
 ## Rövid leírás
 Az Online Survey System egy Java alapú alkalmazás, amely lehetővé teszi különböző típusú kérdőívek létrehozását, szerkesztését és kitöltését. A rendszer támogatja az egy- és többválasztós kérdéseket, valamint skálázott és igen/nem típusú kérdéseket is. Cél, hogy a 
-program mindenfajta kérdés és választípusokat kezelni tudjon. Cél továbbá, hogy ezek egyszerűen bővíthetők legyenek amennyiben új típus kerül a képbe.
+program mindenfajta kérdés és választípusokat kezelni tudjon. Cél továbbá, hogy ezek egyszerűen bővíthetők legyenek amennyiben új típus kerül a programba.
 
 ## Fő funkciók
 - Kérdések és válaszok kezelése (Yes/No, Scale, PickMore típusokkal).
 - Felhasználói válaszok feldolgozása, kiértékelése és visszaadása.
 - Dinamikus kérdőív-szerkesztési lehetőség.
 - Feltételes logika (pl. egy kérdés csak bizonyos válasz után jelenik meg).
+- Kivételkezelés
+- Tesztelés
 
 ## Fájlstruktúra
 - `src/org/example`: Az összes osztály és kód.
+- `src/org/example\test`: A programmhoz írt tesztosztályok
 - `SurveySystem.java`: A fő programfájl.
 - `QuestionAnswerManager.java`: A válaszok feldolgozásáért felelős osztály.
 - Main osztály: felel a programm futtatásáért, a felhasználói inputért.
