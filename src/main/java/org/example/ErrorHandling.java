@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ErrorHandling {
@@ -42,5 +43,22 @@ public class ErrorHandling {
         if (index < 0 || index >= answers.size()) {
             throw new IndexOutOfBoundsException(message);
         }
+    }
+
+    public static List<Integer> parsePickMoreAnswer(String input, int maxAnswerSize) {
+        List<Integer> selectedIndexes = new ArrayList<>();
+        try {
+            String[] tokens = input.split(",");
+            for (String token : tokens) {
+                int index = Integer.parseInt(token.trim()) - 1; // Az input 1-alapú
+                if (index < 0 || index >= maxAnswerSize) {
+                    throw new IllegalArgumentException("Érvénytelen válaszindex: " + (index + 1));
+                }
+                selectedIndexes.add(index);
+            }
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Hibás formátum. Kérem, csak számokat adjon meg!");
+        }
+        return selectedIndexes;
     }
 }

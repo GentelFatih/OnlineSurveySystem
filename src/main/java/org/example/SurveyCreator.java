@@ -13,7 +13,7 @@ public class SurveyCreator {
 
 
         // Kérdések listája
-        List<Question> questions = Arrays.asList(question1, question2);
+        List<Question<?>> questions = Arrays.asList(question1, question2);
 
         // Visszaadja az EmployeeSatisfactionSurvey-t a kérdésekkel
         return new EmployeeSatisfactionSurvey("Munkavállalói Elégedettségi Felmérés", questions);
@@ -30,7 +30,7 @@ public class SurveyCreator {
                 new ScaleQuestion("Milyennek tartod az iroda rendezettségét?", true, false, ScaleAnswer.createScaleAnswers());
 
         // Kérdések listája
-        List<Question> questions = Arrays.asList(question1, question2);
+        List<Question<?>> questions = Arrays.asList(question1, question2);
 
         // Visszaadja a HygieneSatisfactionSurvey-t a kérdésekkel
         return new HygieneSatisfactionSurvey("Higiéniai Elégedettségi Felmérés", questions);
@@ -48,7 +48,7 @@ public class SurveyCreator {
                 pickMoreAnswers
         );
         // A kérdések listája
-        List<Question> questions = Arrays.asList(question1, question2);
+        List<Question<?>> questions = Arrays.asList(question1, question2);
 
         // Kérdőív objektum létrehozása és visszaadása
         return new WorkplaceAccessibilitySurvey("Munkahely Elérhetőségi Felmérés", questions);

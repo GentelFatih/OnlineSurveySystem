@@ -22,6 +22,9 @@ public class PickMoreQuestion extends Question<Answer> {
         return this.selectedAnswers;
     }
 
+    public void setSelectedAnswers(List<Answer> selectedAnswers) {
+
+    }
 
     @Override
     public void displayQuestion() {
@@ -36,4 +39,6 @@ public class PickMoreQuestion extends Question<Answer> {
         }
 
     }
+
+
 }

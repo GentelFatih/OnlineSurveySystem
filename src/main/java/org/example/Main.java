@@ -7,7 +7,6 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-
         // Kérdőívek létrehozása
         Survey survey1 = SurveyCreator.createEmployeeSatisfactionSurvey();
         Survey survey2 = SurveyCreator.createHygieneSatisfactionSurvey();
@@ -19,80 +18,36 @@ public class Main {
         try (Scanner scanner = new Scanner(System.in)) {
             // Iterálunk a kérdőíveken
             for (Survey survey : surveys) {
-                System.out.println("Kérdőív: " + survey.getTitle());  // A kérdőív címe
-                boolean previousQuestionAnsweredYes = false; // Az előző kérdés "IGEN" válasza
+                System.out.println("Kérdőív: " + survey.getTitle()); // A kérdőív címe
+                boolean previousQuestionAnsweredYes = false; // Előző kérdés válasz
 
-                // Iterálunk a kérdéseken
-                for (int i = 0; i < survey.getQuestions().size(); i++) {
-                    Question question = survey.getQuestions().get(i);
-
-                    // Ha a kérdés feltételes (hasCondition), akkor ellenőrizzük az előző válaszát
+                for (Question<?> question : survey.getQuestions()) {
+                    // Ha a kérdés feltételes (hasCondition), ellenőrizzük az előző válaszokat
                     if (question.hasCondition() && !previousQuestionAnsweredYes) {
-                        continue; // Ha az előző kérdésre nem "igen" a válasz, kihagyjuk ezt a kérdést
+                        continue; // Ha az előző válasz nem IGEN, ugorjunk a következő kérdésre
                     }
 
                     // Kérdés megjelenítése
                     question.displayQuestion();
 
-                    // Válaszok kezelése kérdéstípus alapján
-                    if (question instanceof PickMoreQuestion) {
-                        // `PickMoreQuestion` speciális válaszkezelése
-                        PickMoreQuestion pickMoreQuestion = (PickMoreQuestion) question;
-                        System.out.println("Adja meg a választott lehetőségek számát (vesszővel elválasztva, pl.: 1,3): ");
-                        String input = scanner.nextLine(); // Felhasználó válaszainak beolvasása
-                        // Az input feldolgozása és validálása
-                        List<Integer> selectedIndexes = QuestionAnswerManager.parsePickMoreAnswer(input, pickMoreQuestion.getAnswers().size());
-
-// Válaszok feldolgozása
-                        QuestionAnswerManager.processMultipleAnswers(pickMoreQuestion, selectedIndexes);
+                    // Kérdés típusa alapján feldolgozzuk a válaszokat
+                    if (question instanceof YesNoQuestion) {
                         System.out.println();
-
-                    } else if (question instanceof YesNoQuestion) {
-                        // Egyéb kérdések (Yes/No, Scale) válaszainak kezelése
-                        System.out.println("Válassza ki a választ (1-" + question.getAnswers().size() + "): ");
-                        int answerIndex = scanner.nextInt();
-                        scanner.nextLine(); // Felszabadítja az inputot a következő beolvasáshoz
-
-                        if (answerIndex > 0 && answerIndex <= question.getAnswers().size()) {
-                            // Válasz feldolgozása
-                            QuestionAnswerManager.processYesNoAnswer((YesNoQuestion) question, answerIndex - 1);
-                            System.out.println();
-
-                            // Eldöntendő kérdés esetén az előző válasz mentése
-                            if (question instanceof YesNoQuestion && answerIndex == 1) { // 1 = IGEN válasz
-                                previousQuestionAnsweredYes = true;
-                            }
-                            
-                        } else {
-                            System.out.println("Érvénytelen válasz. Kérem válasszon a megadott tartományban.");
-
-                        }
+                        QuestionAnswerManager.processYesNoAnswer((YesNoQuestion) question, scanner);
+                        previousQuestionAnsweredYes = question.getUserAnswer() != null &&
+                                question.getUserAnswer().getText().equalsIgnoreCase("Igen");
                     } else if (question instanceof ScaleQuestion) {
-                        // Egyéb kérdések (Yes/No, Scale) válaszainak kezelése
-                        System.out.println("Válassza ki a választ (1-" + question.getAnswers().size() + "): ");
-                        int answerIndex = scanner.nextInt();
-                        scanner.nextLine(); // Felszabadítja az inputot a következő beolvasáshoz
-
-                        if (answerIndex > 0 && answerIndex <= question.getAnswers().size()) {
-                            // Válasz feldolgozása
-                            QuestionAnswerManager.processScaleAnswer((ScaleQuestion) question, answerIndex - 1);
-                            System.out.println();
-
-                            // Eldöntendő kérdés esetén az előző válasz mentése
-                            if (question instanceof ScaleQuestion && answerIndex == 1) { // 1 = IGEN válasz
-                                previousQuestionAnsweredYes = true;
-                            }
-
-                        } else {
-                            System.out.println("Érvénytelen válasz. Kérem válasszon a megadott tartományban.");
-                        }
-                        
+                        System.out.println();
+                        QuestionAnswerManager.processScaleAnswer((ScaleQuestion) question, scanner);
+                    } else if (question instanceof PickMoreQuestion) {
+                        System.out.println();
+                        QuestionAnswerManager.processMultipleAnswers((PickMoreQuestion) question, scanner);
                     }
                 }
-                System.out.println();  // Külön sor a kérdőívek között
+                System.out.println(); // Kérdőívek között külön sor
             }
         } catch (Exception e) {
-            System.out.println("Hiba történt a válaszok begyűjtése közben. Kérem próbálja újra.");
+            System.out.println("Hiba történt: " + e.getMessage());
         }
     }
 }

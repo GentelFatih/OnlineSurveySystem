@@ -2,79 +2,80 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
 
 public class QuestionAnswerManager {
 
-    /**
-     * Egyszerű válasz feldolgozása YesNoQuestion és ScaleQuestion esetén.
-     *
-     * @param question   A kérdés objektum (YesNoQuestion vagy ScaleQuestion).
-     * @param answerIndex A felhasználó által választott válasz indexe.
-     */
-    public static void processYesNoAnswer(YesNoQuestion question, int answerIndex) {
-        ErrorHandling.checkNullAnswerList(question.getAnswers(), "A válaszok listája null értékű!");
-        ErrorHandling.checkEmptyAnswerList(question.getAnswers(), "A válaszok listája üres!");
-        ErrorHandling.checkValidIndex(question.getAnswers(), answerIndex, "Érvénytelen válaszindex!");
+    public static void processYesNoAnswer(YesNoQuestion question, Scanner scanner) {
+        boolean valid = false;
+        while (!valid) {
+            try {
+                System.out.println("Válassza ki a választ (1-" + question.getAnswers().size() + "): ");
+                int answerIndex = scanner.nextInt() - 1; // 1-alapú indexet kezelünk
+                scanner.nextLine(); // Tisztítja a bemenetet
 
-        // A minden ellenőrzés sikeres -> válasz beállítása
-        YesNoAnswer selectedAnswer = question.getAnswers().get(answerIndex);
-        question.setUserAnswer(selectedAnswer);
-        System.out.println("Válasz mentve: " + selectedAnswer.getText());
-        }
+                // Érvényességi ellenőrzés
+                ErrorHandling.checkValidIndex(question.getAnswers(), answerIndex, "Érvénytelen válaszindex!");
 
-
-
-    public static void processScaleAnswer(ScaleQuestion question, int answerIndex) {
-        ErrorHandling.checkNullAnswerList(question.getAnswers(), "A válaszok listája null értékű!");
-        ErrorHandling.checkEmptyAnswerList(question.getAnswers(), "A válaszok listája üres!");
-        ErrorHandling.checkValidIndex(question.getAnswers(), answerIndex, "Érvénytelen válaszindex!");
-
-        // A minden ellenőrzés sikeres -> válasz beállítása
-        ScaleAnswer selectedAnswer = question.getAnswers().get(answerIndex);
-        question.setUserAnswer(selectedAnswer);
-        System.out.println("Válasz mentve: " + selectedAnswer.getText());
-    }
-
-    public static void processMultipleAnswers(PickMoreQuestion question, List<Integer> selectedIndexes) {
-        ErrorHandling.checkNullAnswerList(question.getAnswers(), "A válaszok listája null értékű");
-        ErrorHandling.checkEmptyAnswerList(question.getAnswers(), "A válaszok listája üres!");
-
-        // kiválasztott indexek ellenőrzése
-        for (int index : selectedIndexes) {
-            ErrorHandling.checkValidIndex(question.getAnswers(), index, "Érvénytelen válaszindex: " + index);
-            question.addSelectedAnswer(question.getAnswers().get(index));
-
-        }
-        System.out.println("Kiválasztott opciók: ");
-        question.getSelectedAnswers().forEach(answer -> System.out.println("- " + answer.getText()));
-    }
-
-    /**
-     * PickMoreQuestion válaszainak indexeit dolgozza fel a felhasználói inputból.
-     *
-     * @param input         A felhasználói input (vesszővel elválasztott számok).
-     * @param maxAnswerSize Az elérhető válaszok maximális száma.
-     * @return A felhasználó által választott válaszok indexeinek listája.
-     */
-    public static List<Integer> parsePickMoreAnswer(String input, int maxAnswerSize) {
-        List<Integer> selectedIndexes = new ArrayList<>();
-        try {
-            String[] tokens = input.split(",");
-            for (String token : tokens) {
-                int index = Integer.parseInt(token.trim()) - 1; // Az input 1-alapú
-                if (index >= 0 && index < maxAnswerSize) {
-                    selectedIndexes.add(index);
-                } else {
-                    System.out.println("Érvénytelen válaszindex: " + (index + 1));
-                }
+                // Válasz feldolgozása
+                YesNoAnswer selectedAnswer = question.getAnswers().get(answerIndex);
+                question.setUserAnswer(selectedAnswer);
+                System.out.println("Válasz mentve: " + selectedAnswer.getText());
+                System.out.println();
+                valid = true;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                scanner.nextLine(); // Hibás bemenet tisztítása
             }
-        } catch (NumberFormatException e) {
-            System.out.println("Hibás formátum. Kérem, csak számokat adjon meg!");
         }
-        return selectedIndexes;
+    }
+
+    public static void processScaleAnswer(ScaleQuestion question, Scanner scanner) {
+        boolean valid = false;
+        while (!valid) {
+            try {
+                System.out.println("Válassza ki a választ (1-" + question.getAnswers().size() + "): ");
+                int answerIndex = scanner.nextInt() - 1; // 1-alapú indexet kezelünk
+                scanner.nextLine(); // Tisztítja a bemenetet
+
+                // Érvényességi ellenőrzés
+                ErrorHandling.checkValidIndex(question.getAnswers(), answerIndex, "Érvénytelen válaszindex!");
+
+                // Válasz feldolgozása
+                ScaleAnswer selectedAnswer = question.getAnswers().get(answerIndex);
+                question.setUserAnswer(selectedAnswer);
+                System.out.println("Válasz mentve: " + selectedAnswer.getText());
+                valid = true;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                scanner.nextLine(); // Hibás bemenet tisztítása
+            }
+        }
+    }
+
+    public static void processMultipleAnswers(PickMoreQuestion question, Scanner scanner) {
+        while (true) {
+            try {
+                System.out.println("Adja meg a választott lehetőségek számát (vesszővel elválasztva, pl.: 1,3): ");
+                String input = scanner.nextLine();
+
+                // Parse az inputot
+                List<Integer> selectedIndexes = ErrorHandling.parsePickMoreAnswer(input, question.getAnswers().size());
+
+                // Mentjük a kiválasztott válaszokat
+                for (int index : selectedIndexes) {
+                    question.addSelectedAnswer(question.getAnswers().get(index));
+                }
+
+                // Kiírjuk a kiválasztott válaszokat
+                System.out.println("Választott lehetőségek:");
+                for (Answer answer : question.getSelectedAnswers()) {
+                    System.out.println("- " + answer.getText());
+                }
+                break; // Ha minden rendben van, kilépünk a ciklusból
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }

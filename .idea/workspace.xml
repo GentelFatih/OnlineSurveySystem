@@ -9,11 +9,18 @@
       <change beforePath="$PROJECT_DIR$/OnlineSurveySystem" beforeDir="false" afterPath="$PROJECT_DIR$/OnlineSurveySystem" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OnlineSurveySystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OnlineSurveySystem/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OnlineSurveySystem/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OnlineSurveySystem/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/EmployeeSatisfactionSurvey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/EmployeeSatisfactionSurvey.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ErrorHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ErrorHandling.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Question.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/HygieneSatisfactionSurvey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/HygieneSatisfactionSurvey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/PickMoreQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/PickMoreQuestion.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/QuestionAnswerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/QuestionAnswerManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SurveyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SurveyTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/YesNoQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/YesNoQuestion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Survey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Survey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SurveyCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SurveyCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SurveyTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/WorkplaceAccessibilitySurvey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/WorkplaceAccessibilitySurvey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/tests/QuestionAnswerManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/tests/QuestionAnswerManagerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/tests/SurveyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/tests/SurveyTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

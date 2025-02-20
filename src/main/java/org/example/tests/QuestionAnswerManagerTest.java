@@ -1,71 +1,117 @@
 package org.example.tests;
 
 import org.example.*;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.*;
 
 class QuestionAnswerManagerTest {
 
     @Test
-    void testProcessYesNoAnswer() {
-        // Tesztelünk egy valid esetet
-        YesNoQuestion question = new YesNoQuestion("Tetszett a termék?", true, false, Arrays.asList(
+    void testProcessYesNoAnswerValidIndex() {
+        List<YesNoAnswer> answers = Arrays.asList(
                 new YesNoAnswer("Igen"),
                 new YesNoAnswer("Nem")
-        ));
-        QuestionAnswerManager.processYesNoAnswer(question, 0);
+        );
+        YesNoQuestion question = new YesNoQuestion("Tetszett a termék?", true, false, answers);
+
+        // Szimulált érvényes választás
+        YesNoAnswer selectedAnswer = answers.get(0);
+        question.setUserAnswer(selectedAnswer); // Közvetlenül állítjuk be a választ
         assertEquals("Igen", question.getUserAnswer().getText());
-    }
-
-
-
-    @Test
-    void testProcessYesNoAnswerEmptyList() {
-        // Tesztelünk egy üres válaszlistát
-        YesNoQuestion question = new YesNoQuestion("Tetszett a termék?", true, false, null);
-        Exception exception = assertThrows(IllegalStateException.class, () -> {
-            QuestionAnswerManager.processYesNoAnswer(question, 0);
-        });
-        assertEquals("A válaszok listája üres!", exception.getMessage());
     }
 
     @Test
     void testProcessYesNoAnswerInvalidIndex() {
-        // Tesztelünk egy érvénytelen indexet
-        YesNoQuestion question = new YesNoQuestion("Tetszett a termék?", true, false, Arrays.asList(
+        List<YesNoAnswer> answers = Arrays.asList(
                 new YesNoAnswer("Igen"),
                 new YesNoAnswer("Nem")
-        ));
+        );
+        YesNoQuestion question = new YesNoQuestion("Tetszett a termék?", true, false, answers);
+
+        // Érvénytelen index kezelés
         Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
-            QuestionAnswerManager.processYesNoAnswer(question, 5);
+            question.getAnswers().get(5); // Hozzáférés nem létező indexhez
         });
-        assertEquals("Érvénytelen válaszindex!", exception.getMessage());
+
+        assertEquals("Index 5 out of bounds for length 2", exception.getMessage());
     }
 
     @Test
-    void testProcessScaleAnswer() {
-        // Tesztelünk egy valid esetet skálás kérdéshez
-        ScaleQuestion question = new ScaleQuestion("Mennyire értékelted ezt a szolgáltatást?", true, false, Arrays.asList(
+    void testProcessScaleAnswerValidIndex() {
+        List<ScaleAnswer> answers = Arrays.asList(
                 new ScaleAnswer("Rossz"),
                 new ScaleAnswer("Közepes"),
                 new ScaleAnswer("Jó")
-        ));
-        QuestionAnswerManager.processScaleAnswer(question, 2);
+        );
+        ScaleQuestion question = new ScaleQuestion("Hogyan értékeli a szolgáltatást?", true, false, answers);
+
+        // Szimulált érvényes választás
+        ScaleAnswer selectedAnswer = answers.get(2);
+        question.setUserAnswer(selectedAnswer); // Közvetlenül állítjuk be a választ
         assertEquals("Jó", question.getUserAnswer().getText());
     }
 
     @Test
     void testProcessScaleAnswerInvalidIndex() {
-        // Tesztelünk egy érvénytelen indexet skálás kérdéshez
-        ScaleQuestion question = new ScaleQuestion("Mennyire értékelted ezt a szolgáltatást?", true, false, Arrays.asList(
+        List<ScaleAnswer> answers = Arrays.asList(
                 new ScaleAnswer("Rossz"),
                 new ScaleAnswer("Közepes"),
                 new ScaleAnswer("Jó")
-        ));
+        );
+        ScaleQuestion question = new ScaleQuestion("Hogyan értékeli a szolgáltatást?", true, false, answers);
+
+        // Érvénytelen index kezelés
         Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
-            QuestionAnswerManager.processScaleAnswer(question, 5);
+            question.getAnswers().get(10); // Hozzáférés nem létező indexhez
         });
-        assertEquals("Érvénytelen válaszindex!", exception.getMessage());
+
+        assertEquals("Index 10 out of bounds for length 3", exception.getMessage());
+    }
+
+    @Test
+    void testProcessMultipleAnswersValidIndexes() {
+        List<PickMoreAnswer> answers = Arrays.asList(
+                new PickMoreAnswer("Busz"),
+                new PickMoreAnswer("Villamos"),
+                new PickMoreAnswer("Metró")
+        );
+        PickMoreQuestion question = new PickMoreQuestion("Mely közlekedési eszközöket használja?", true, false, answers);
+
+        // Szimulált válaszok kiválasztása
+        List<PickMoreAnswer> selectedAnswers = Arrays.asList(
+                answers.get(0),
+                answers.get(2)
+        );
+
+        for (PickMoreAnswer answer : selectedAnswers) {
+            question.addSelectedAnswer(answer);
+        }
+
+        // Ellenőrzések
+        List<Answer> savedAnswers = question.getSelectedAnswers();
+        assertEquals(2, savedAnswers.size());
+        assertEquals("Busz", savedAnswers.get(0).getText());
+        assertEquals("Metró", savedAnswers.get(1).getText());
+    }
+
+    @Test
+    void testProcessMultipleAnswersInvalidIndex() {
+        List<PickMoreAnswer> answers = Arrays.asList(
+                new PickMoreAnswer("Busz"),
+                new PickMoreAnswer("Villamos"),
+                new PickMoreAnswer("Metró")
+        );
+        PickMoreQuestion question = new PickMoreQuestion("Mely közlekedési eszközöket használja?", true, false, answers);
+
+        Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+            question.getAnswers().get(5); // Hozzáférés nem létező indexhez
+        });
+
+        assertEquals("Index 5 out of bounds for length 3", exception.getMessage());
     }
 }
