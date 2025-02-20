@@ -42,6 +42,9 @@ public abstract class Question<T extends Answer> {
     public T getUserAnswer() {
         return userAnswer;
     }
+    public void addAnswer(YesNoAnswer answer) {
+
+    }
 
     public void setUserAnswer(T userAnswer) {
         this.userAnswer =  userAnswer;

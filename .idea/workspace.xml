@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6605b200-8959-4cae-8d60-d46db7d4769d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OnlineSurveySystem" beforeDir="false" afterPath="$PROJECT_DIR$/OnlineSurveySystem" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OnlineSurveySystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OnlineSurveySystem/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OnlineSurveySystem/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OnlineSurveySystem/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ErrorHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ErrorHandling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Question.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/QuestionAnswerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/QuestionAnswerManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SurveyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SurveyTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/YesNoQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/YesNoQuestion.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,18 +43,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SurveyTest.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/Coding/Projects/SurveySystem&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;F:/Coding/Projects/OnlineSurveySystem/src/main/java/org/example/Main.java&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.SurveyTest.executor": "Run",
+    "JUnit.ExceptionHandlingTest.executor": "Run",
+    "JUnit.PickMoreQuestionTest.executor": "Run",
+    "JUnit.QuestionAnswerManagerTest.executor": "Run",
+    "JUnit.QuestionTest.executor": "Run",
+    "JUnit.ScaleQuestionTest.executor": "Run",
+    "JUnit.SurveyTest.executor": "Run",
+    "JUnit.YesNoQuestionTest.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "F:/Coding/Projects/SurveySystem",
+    "onboarding.tips.debug.path": "F:/Coding/Projects/OnlineSurveySystem/src/main/java/org/example/Main.java"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\Coding\Projects\OnlineSurveySystem\src\main\java\org\example" />

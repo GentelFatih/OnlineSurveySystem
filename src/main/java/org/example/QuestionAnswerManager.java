@@ -16,31 +16,38 @@ public class QuestionAnswerManager {
      * @param answerIndex A felhasználó által választott válasz indexe.
      */
     public static void processYesNoAnswer(YesNoQuestion question, int answerIndex) {
-        if (answerIndex < 0 || answerIndex >= question.getAnswers().size()) {
-            System.out.println("Érvénytelen válaszindex.");
-            return;
-        }
+        ErrorHandling.checkNullAnswerList(question.getAnswers(), "A válaszok listája null értékű!");
+        ErrorHandling.checkEmptyAnswerList(question.getAnswers(), "A válaszok listája üres!");
+        ErrorHandling.checkValidIndex(question.getAnswers(), answerIndex, "Érvénytelen válaszindex!");
+
+        // A minden ellenőrzés sikeres -> válasz beállítása
         YesNoAnswer selectedAnswer = question.getAnswers().get(answerIndex);
         question.setUserAnswer(selectedAnswer);
         System.out.println("Válasz mentve: " + selectedAnswer.getText());
-    }
+        }
+
+
 
     public static void processScaleAnswer(ScaleQuestion question, int answerIndex) {
-        if (answerIndex < 0 || answerIndex >= question.getAnswers().size()) {
-            System.out.println("Érvénytelen válaszindex.");
-            return;
-        }
+        ErrorHandling.checkNullAnswerList(question.getAnswers(), "A válaszok listája null értékű!");
+        ErrorHandling.checkEmptyAnswerList(question.getAnswers(), "A válaszok listája üres!");
+        ErrorHandling.checkValidIndex(question.getAnswers(), answerIndex, "Érvénytelen válaszindex!");
+
+        // A minden ellenőrzés sikeres -> válasz beállítása
         ScaleAnswer selectedAnswer = question.getAnswers().get(answerIndex);
         question.setUserAnswer(selectedAnswer);
         System.out.println("Válasz mentve: " + selectedAnswer.getText());
     }
+
     public static void processMultipleAnswers(PickMoreQuestion question, List<Integer> selectedIndexes) {
+        ErrorHandling.checkNullAnswerList(question.getAnswers(), "A válaszok listája null értékű");
+        ErrorHandling.checkEmptyAnswerList(question.getAnswers(), "A válaszok listája üres!");
+
+        // kiválasztott indexek ellenőrzése
         for (int index : selectedIndexes) {
-            if (index >= 0 && index < question.getAnswers().size()) {
-                question.addSelectedAnswer(question.getAnswers().get(index));
-            } else {
-                System.out.println("Érvénytelen válaszindex: " + index);
-            }
+            ErrorHandling.checkValidIndex(question.getAnswers(), index, "Érvénytelen válaszindex: " + index);
+            question.addSelectedAnswer(question.getAnswers().get(index));
+
         }
         System.out.println("Kiválasztott opciók: ");
         question.getSelectedAnswers().forEach(answer -> System.out.println("- " + answer.getText()));

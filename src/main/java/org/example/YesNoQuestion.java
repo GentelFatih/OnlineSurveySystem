@@ -20,4 +20,6 @@ public class YesNoQuestion extends Question<YesNoAnswer> {
             getAnswers().get(i).displayAnswer(i); // Válaszok számokkal
         }
     }
+
+
 }

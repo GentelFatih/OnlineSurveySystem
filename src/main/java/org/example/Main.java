@@ -65,6 +65,7 @@ public class Main {
                             
                         } else {
                             System.out.println("Érvénytelen válasz. Kérem válasszon a megadott tartományban.");
+
                         }
                     } else if (question instanceof ScaleQuestion) {
                         // Egyéb kérdések (Yes/No, Scale) válaszainak kezelése
