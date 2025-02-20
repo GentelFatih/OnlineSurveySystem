@@ -15,19 +15,17 @@ program mindenfajta kérdés és választípusokat kezelni tudjon. Cél tovább�
 ## Fájlstruktúra
 - `src/org/example`: Az összes osztály és kód.
 - `src/org/example\test`: A programmhoz írt tesztosztályok
-- `SurveySystem.java`: A fő programfájl.
 - `QuestionAnswerManager.java`: A válaszok feldolgozásáért felelős osztály.
-- Main osztály: felel a programm futtatásáért, a felhasználói inputért.
-- Question osztály: Ősosztály, legikább azért felel, hogy egy kérdés jellemző paramétereit tartalmazza.
-- Question alosztályok: feladatuk a kérdések különböző típusainak csoportosítása, és azok tipusonként való kezelése.
-- Answer osztály: Ősosztály, a válaszok alapvető keretrendszerét határozza meg.
-- Answer alosztályok: A különböző tipusú válaszokat hivatott csoportosítani, és azok tartalmát, alapvető keretrendszerét meghatározni.
-- Survey ősosztály: feladata a kérdőívek alapvető kerendrendszerének meghatározása
-- Survey alosztályok: az eggyes kérdőívek tartalmi és fromai kereteinek meghatározása
-- SurveyCreator: Ez az osztály felelős az új kerdőívek létrehozásáért
-- ErrorHandling: egyenlőre üres osztály, szükség esetén a felmerülő hibák kezelésére létrehozott osztály
-- 
-
+- `Main osztály`: felel a programm futtatásáért, a felhasználói inputért.
+- `Question osztály`: Ősosztály, legikább azért felel, hogy egy kérdés jellemző paramétereit tartalmazza.
+- `Question alosztályok`: feladatuk a kérdések különböző típusainak csoportosítása, és azok tipusonként való kezelése.
+- `Answer osztály`: Ősosztály, a válaszok alapvető keretrendszerét határozza meg.
+- `Answer alosztályok`: A különböző tipusú válaszokat hivatott csoportosítani, és azok tartalmát, alapvető keretrendszerét meghatározni.
+- `Survey ősosztály`: feladata a kérdőívek alapvető kerendrendszerének meghatározása
+- `Survey alosztályok`: az eggyes kérdőívek tartalmi és fromai kereteinek meghatározása
+- `SurveyCreator`: Ez az osztály felelős az új kerdőívek létrehozásáért
+- `ErrorHandling`: a hibakezelésekért felelős osztály
+- `Test package`: A különböző tesztekért felelős osztályokat tartalmazza
 ## Használat
 1. Klónozd a repót:  
    ```bash
