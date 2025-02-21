@@ -18,9 +18,9 @@ public class ScaleAnswer extends Answer {
     // Létrehoz egy skálázott válaszokból álló listát (pl. 1-től 5-ig)
     public static List<ScaleAnswer> createScaleAnswers() {
         List<ScaleAnswer> answers = new ArrayList<>();
-        ScaleAnswer answer1 = new ScaleAnswer("Rossz");
-        ScaleAnswer answer2 = new ScaleAnswer("Közepes");
-        ScaleAnswer answer3 = new ScaleAnswer("Jó");
-        return Arrays.asList(answer1, answer2, answer3);
+        answers.add(new ScaleAnswer("Rossz"));
+        answers.add(new ScaleAnswer("Közepes"));
+        answers.add(new ScaleAnswer("Jó"));
+        return answers;
     }
 }
