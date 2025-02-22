@@ -18,7 +18,7 @@ class ScaleQuestionTest {
         );
 
         // ScaleQuestion létrehozása
-        ScaleQuestion question = new ScaleQuestion("Mennyire értékeled ezt a szolgáltatást?", true, false, answers);
+        ScaleQuestion question = new ScaleQuestion("Mennyire értékeled ezt a szolgáltatást?", true, false, false, answers);
 
         // Felhasználói válasz kiválasztása (az egyik előre definiált válasz)
         ScaleAnswer selectedAnswer = answers.get(2); // "Jó"

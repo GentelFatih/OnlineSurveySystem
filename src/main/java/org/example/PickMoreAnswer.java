@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class PickMoreAnswer extends Answer {
 
@@ -17,7 +18,7 @@ public class PickMoreAnswer extends Answer {
 
 
     // Létrehoz egy válaszlistát tömegközlekedési eszközökre példaként
-    public static List<PickMoreAnswer> createPickMoreAnswers() {
+    public static List<PickMoreAnswer> createPickMoreAnswersPublicTransport() {
         List<PickMoreAnswer> answers = new ArrayList<>();
         answers.add(new PickMoreAnswer("Busz"));
         answers.add(new PickMoreAnswer("Villamos"));
@@ -28,4 +29,18 @@ public class PickMoreAnswer extends Answer {
 
         return answers;
     }
+    public static List<PickMoreAnswer> createPickMoreAnswerHobbies() {
+        List<PickMoreAnswer> answers = new ArrayList<>();
+        answers.add(new PickMoreAnswer("Sport"));
+        answers.add(new PickMoreAnswer("Olvasás"));
+        answers.add(new PickMoreAnswer("Színház"));
+        answers.add(new PickMoreAnswer("Film"));
+        answers.add(new PickMoreAnswer("Zene"));
+        answers.add(new PickMoreAnswer("Videojátékok"));
+        answers.add(new PickMoreAnswer("Egyéb:"));
+
+        return answers;
+    }
+
+
 }

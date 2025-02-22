@@ -7,8 +7,8 @@ public class YesNoQuestion extends Question<YesNoAnswer> {
     private Answer selectedAnswer;
 
 
-    public YesNoQuestion(String text, boolean isRequired, boolean hasCondition, List<YesNoAnswer> answers) {
-        super(text, isRequired, hasCondition, answers != null ? answers : new ArrayList<>());
+    public YesNoQuestion(String text, boolean isRequired, boolean hasCondition, boolean isExplicable, List<YesNoAnswer> answers) {
+        super(text, isRequired, hasCondition, isExplicable, answers != null ? answers : new ArrayList<>());
     }
 
 

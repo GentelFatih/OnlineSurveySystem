@@ -1,5 +1,6 @@
 package org.example;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -53,29 +54,53 @@ public class QuestionAnswerManager {
         }
     }
 
-    public static void processMultipleAnswers(PickMoreQuestion question, Scanner scanner) {
+    public static void processMultipleAnswers(PickMoreQuestion question, Survey survey, Scanner scanner) {
         while (true) {
             try {
                 System.out.println("Adja meg a választott lehetőségek számát (vesszővel elválasztva, pl.: 1,3): ");
                 String input = scanner.nextLine();
 
-                // Parse az inputot
                 List<Integer> selectedIndexes = ErrorHandling.parsePickMoreAnswer(input, question.getAnswers().size());
 
-                // Mentjük a kiválasztott válaszokat
+                List<String> selectedTexts = new ArrayList<>();
                 for (int index : selectedIndexes) {
-                    question.addSelectedAnswer(question.getAnswers().get(index));
+                    Answer answer = question.getAnswers().get(index);
+                    question.addSelectedAnswer(answer);
+                    selectedTexts.add(answer.getText().toLowerCase());
                 }
 
-                // Kiírjuk a kiválasztott válaszokat
                 System.out.println("Választott lehetőségek:");
                 for (Answer answer : question.getSelectedAnswers()) {
                     System.out.println("- " + answer.getText());
                 }
-                break; // Ha minden rendben van, kilépünk a ciklusból
+
+                // Ha a válaszok között szerepel "sport" vagy "egyéb", akkor megkeressük a Survey-ben az ExplicitQuestion-t
+                if (selectedTexts.contains("sport") || selectedTexts.contains("egyéb:")) {
+                    for (Question<?> q : survey.getQuestions()) {
+                        if (q instanceof ExplicitQuestion) {
+                            processExplicitAnswers((ExplicitQuestion) q, scanner);
+                            break;
+                        }
+                    }
+                }
+                break;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+        }
+    }
+    public static void processExplicitAnswers(ExplicitQuestion question, Scanner scanner) {
+        try {
+            System.out.println(question.getText());
+            String input = scanner.nextLine();
+
+            // Az inputból ExplicitAnswer példányt hozunk létre
+            ExplicitAnswer explicitAnswer = new ExplicitAnswer(input);
+
+            question.setUserAnswer(explicitAnswer);
+            System.out.println("Válasz mentve: " + explicitAnswer.getText());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }

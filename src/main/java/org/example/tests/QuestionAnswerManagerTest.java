@@ -17,7 +17,7 @@ class QuestionAnswerManagerTest {
                 new YesNoAnswer("Igen"),
                 new YesNoAnswer("Nem")
         );
-        YesNoQuestion question = new YesNoQuestion("Tetszett a termék?", true, false, answers);
+        YesNoQuestion question = new YesNoQuestion("Tetszett a termék?", true, false, false, answers);
 
         // Szimulált érvényes választás
         YesNoAnswer selectedAnswer = answers.get(0);
@@ -31,7 +31,7 @@ class QuestionAnswerManagerTest {
                 new YesNoAnswer("Igen"),
                 new YesNoAnswer("Nem")
         );
-        YesNoQuestion question = new YesNoQuestion("Tetszett a termék?", true, false, answers);
+        YesNoQuestion question = new YesNoQuestion("Tetszett a termék?", true, false, false, answers);
 
         // Érvénytelen index kezelés
         Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
@@ -48,7 +48,7 @@ class QuestionAnswerManagerTest {
                 new ScaleAnswer("Közepes"),
                 new ScaleAnswer("Jó")
         );
-        ScaleQuestion question = new ScaleQuestion("Hogyan értékeli a szolgáltatást?", true, false, answers);
+        ScaleQuestion question = new ScaleQuestion("Hogyan értékeli a szolgáltatást?", true, false, false, answers);
 
         // Szimulált érvényes választás
         ScaleAnswer selectedAnswer = answers.get(2);
@@ -63,7 +63,7 @@ class QuestionAnswerManagerTest {
                 new ScaleAnswer("Közepes"),
                 new ScaleAnswer("Jó")
         );
-        ScaleQuestion question = new ScaleQuestion("Hogyan értékeli a szolgáltatást?", true, false, answers);
+        ScaleQuestion question = new ScaleQuestion("Hogyan értékeli a szolgáltatást?", true, false, false, answers);
 
         // Érvénytelen index kezelés
         Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
@@ -80,7 +80,7 @@ class QuestionAnswerManagerTest {
                 new PickMoreAnswer("Villamos"),
                 new PickMoreAnswer("Metró")
         );
-        PickMoreQuestion question = new PickMoreQuestion("Mely közlekedési eszközöket használja?", true, false, answers);
+        PickMoreQuestion question = new PickMoreQuestion("Mely közlekedési eszközöket használja?", true, false, false, answers);
 
         // Szimulált válaszok kiválasztása
         List<PickMoreAnswer> selectedAnswers = Arrays.asList(
@@ -106,7 +106,7 @@ class QuestionAnswerManagerTest {
                 new PickMoreAnswer("Villamos"),
                 new PickMoreAnswer("Metró")
         );
-        PickMoreQuestion question = new PickMoreQuestion("Mely közlekedési eszközöket használja?", true, false, answers);
+        PickMoreQuestion question = new PickMoreQuestion("Mely közlekedési eszközöket használja?", true, false, false, answers);
 
         Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
             question.getAnswers().get(5); // Hozzáférés nem létező indexhez

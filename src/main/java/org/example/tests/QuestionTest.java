@@ -13,7 +13,7 @@ class QuestionTest {
                 new YesNoAnswer("Igen"),
                 new YesNoAnswer("Nem")
         );
-        YesNoQuestion question = new YesNoQuestion("Szereted a kávét?", true, false, answers);
+        YesNoQuestion question = new YesNoQuestion("Szereted a kávét?", true, false, false, answers);
         assertEquals("Szereted a kávét?", question.getText());
         assertEquals(2, question.getAnswers().size());
     }

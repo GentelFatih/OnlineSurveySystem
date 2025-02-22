@@ -12,7 +12,7 @@ class YesNoQuestionTest {
                 new YesNoAnswer("Igen"),
                 new YesNoAnswer("Nem")
         );
-        YesNoQuestion question = new YesNoQuestion("Szeretsz sportolni?", true, false, answers);
+        YesNoQuestion question = new YesNoQuestion("Szeretsz sportolni?", true, false, false, answers);
 
         YesNoAnswer yesAnswer = new YesNoAnswer("Igen");
         question.setUserAnswer(yesAnswer);

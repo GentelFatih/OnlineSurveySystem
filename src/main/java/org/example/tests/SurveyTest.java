@@ -14,8 +14,8 @@ class SurveyTest {
     void testSurveyCreation() {
         // Létrehozunk egy teszt Survey objektumot
         List<Question<?>> questions = Arrays.asList(
-                new YesNoQuestion("Elégedett a munkakörnyezetével?", true, false, YesNoAnswer.createYesNoAnswers()),
-                new ScaleQuestion("Hogyan értékelné a céges kultúrát?", true, false, ScaleAnswer.createScaleAnswers())
+                new YesNoQuestion("Elégedett a munkakörnyezetével?", true, false, false, YesNoAnswer.createYesNoAnswers()),
+                new ScaleQuestion("Hogyan értékelné a céges kultúrát?", true, false, false, ScaleAnswer.createScaleAnswers())
         );
 
         Survey survey = new Survey("Munkavállalói elégedettségi felmérés", questions);
@@ -29,7 +29,7 @@ class SurveyTest {
     @Test
     void testSurveyAddQuestion() {
         Survey survey = new Survey("Új Felmérés", null);
-        YesNoQuestion question = new YesNoQuestion("Elégedett az irodával?", true, false, YesNoAnswer.createYesNoAnswers());
+        YesNoQuestion question = new YesNoQuestion("Elégedett az irodával?", true, false, false, YesNoAnswer.createYesNoAnswers());
 
         survey.addQuestion(question);
 
@@ -41,8 +41,8 @@ class SurveyTest {
     @Test
     void testSurveyDisplaySurvey() {
         List<Question<?>> questions = Arrays.asList(
-                new YesNoQuestion("Elégedett a vezetőséggel?", true, false, YesNoAnswer.createYesNoAnswers()),
-                new ScaleQuestion("Hogyan értékeli az irodai infrastruktúrát?", true, false, ScaleAnswer.createScaleAnswers())
+                new YesNoQuestion("Elégedett a vezetőséggel?", true, false, false, YesNoAnswer.createYesNoAnswers()),
+                new ScaleQuestion("Hogyan értékeli az irodai infrastruktúrát?", true, false, false, ScaleAnswer.createScaleAnswers())
         );
 
         Survey survey = new Survey("Teszt Felmérés", questions);
@@ -56,9 +56,9 @@ class SurveyTest {
 
     @Test
     void testSurveyWithConditionalQuestion() {
-        YesNoQuestion question1 = new YesNoQuestion("Elégedett a céges juttatásokkal?", true, false, YesNoAnswer.createYesNoAnswers());
+        YesNoQuestion question1 = new YesNoQuestion("Elégedett a céges juttatásokkal?", true, false, false, YesNoAnswer.createYesNoAnswers());
         PickMoreQuestion question2 = new PickMoreQuestion(
-                "Mely juttatásokat tartja fontosnak?", true, true, PickMoreAnswer.createPickMoreAnswers());
+                "Mely juttatásokat tartja fontosnak?", true, true, false, PickMoreAnswer.createPickMoreAnswersPublicTransport());
 
         List<Question<?>> questions = Arrays.asList(question1, question2);
         Survey survey = new Survey("Teszt feltételes kérdéssel", questions);

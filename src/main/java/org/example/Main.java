@@ -11,15 +11,18 @@ public class Main {
         Survey survey1 = SurveyCreator.createEmployeeSatisfactionSurvey();
         Survey survey2 = SurveyCreator.createHygieneSatisfactionSurvey();
         Survey survey3 = SurveyCreator.createWorkplaceAccessibilitySurvey();
+        Survey survey4 = SurveyCreator.createPersonalQuestionsSurvey();
 
         // Kérdőívek listába helyezése
-        List<Survey> surveys = Arrays.asList(survey1, survey2, survey3);
+        List<Survey> surveys = Arrays.asList(survey1, survey2, survey3, survey4);
 
         try (Scanner scanner = new Scanner(System.in)) {
             // Iterálunk a kérdőíveken
             for (Survey survey : surveys) {
                 System.out.println("Kérdőív: " + survey.getTitle()); // A kérdőív címe
                 boolean previousQuestionAnsweredYes = false; // Előző kérdés válasz
+
+
 
                 for (Question<?> question : survey.getQuestions()) {
                     // Ha a kérdés feltételes (hasCondition), ellenőrizzük az előző válaszokat
@@ -41,7 +44,12 @@ public class Main {
                         QuestionAnswerManager.processScaleAnswer((ScaleQuestion) question, scanner);
                     } else if (question instanceof PickMoreQuestion) {
                         System.out.println();
-                        QuestionAnswerManager.processMultipleAnswers((PickMoreQuestion) question, scanner);
+                        QuestionAnswerManager.processMultipleAnswers((PickMoreQuestion) question, survey, scanner);
+
+                    } else if (question instanceof ExplicitQuestion) {
+                        System.out.println();
+                        QuestionAnswerManager.processExplicitAnswers((ExplicitQuestion) question, scanner);
+
                     }
                 }
                 System.out.println(); // Kérdőívek között külön sor

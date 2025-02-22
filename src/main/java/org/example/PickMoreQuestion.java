@@ -3,15 +3,15 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PickMoreQuestion extends Question<Answer> {
+public class PickMoreQuestion extends Question<PickMoreAnswer> {
     private List<Answer> selectedAnswers = new ArrayList<>();
 
     public PickMoreQuestion(String text) {
         super(text);
     }
 
-    public PickMoreQuestion(String text, boolean isRequired, boolean hasCondition, List<PickMoreAnswer> answers) {
-        super(text, isRequired, hasCondition, answers);
+    public PickMoreQuestion(String text, boolean isRequired, boolean hasCondition,boolean isExplicable, List<PickMoreAnswer> answers) {
+        super(text, isRequired, hasCondition, isExplicable, answers);
     }
 
     public void addSelectedAnswer(Answer answer) {
